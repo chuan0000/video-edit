@@ -1,0 +1,31 @@
+[package]
+name = "podflow-multicam"
+version = "0.1.0"
+description = "PodFlow AI Multi-Camera Podcast Video Editor (Intel x86_64 / Universal Architecture)"
+authors = ["Senior Desktop Software Architect"]
+edition = "2021"
+
+[lib]
+name = "podflow_multicam_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = "2"
+tauri-plugin-dialog = "2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+uuid = { version = "1.7", features = ["v4"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+windows = { version = "0.58", features = ["Win32_System_Threading"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
